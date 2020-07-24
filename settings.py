@@ -1,0 +1,1 @@
+SOLR_SELECT_ENDPOINT = "http://localhost:8983/solr/felix_archive/select"
