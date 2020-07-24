@@ -1,7 +1,10 @@
-(function($){
-  $(function(){
+document.addEventListener('DOMContentLoaded', function() {
+  const elems = document.querySelectorAll('select');
+  M.FormSelect.init(elems, null);
+});
 
-    $('.sidenav').sidenav();
-
-  }); // end of document ready
-})(jQuery); // end of jQuery name space
+$('#sort_by').change(function(){
+  let url  = new URL(window.location.href)
+  url.searchParams.set("sort", $(this).val())
+  window.location.href = url.toString()
+})

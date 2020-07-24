@@ -17,27 +17,35 @@
 <body>
 <nav class="black" role="navigation">
   <div class="nav-wrapper container">
-    <a href="#" class="brand-logo center">Felix Archive</a>
+    <a href="/" class="brand-logo center">Felix Archive</a>
   </div>
 </nav>
 
 <main>
   <div class="container">
     <div class="row">
-      <div class="col s12 m10 offset-m1 l10 offset-l1">
-        <div class="section">
-          <h3>Search Results</h3>
-          <form action="/search">
-            <div class="search-field input-field">
-              <div class="btn black waves-effect waves-light" type="submit">
-                <span>Search</span>
-              </div>
-              <div class="search-text-wrapper">
-                <input class="search-text" type="text" value="{{ search_word }}" name="q">
-              </div>
+      <div class="col s12 m12 l10 offset-l1">
+        <h3>Search Results</h3>
+        <form action="/search" id="search_form">
+          <div class="search-field input-field">
+            <button class="btn black waves-effect waves-light" type="submit">
+              <span>Search</span>
+            </button>
+            <div class="search-text-wrapper">
+              <input class="search-text" type="text" value="{{ request.args.get('q') }}" name="q">
             </div>
-          </form>
+          </div>
+        </form>
+        <div class="row" style="margin-bottom: 0;">
+          <div class="input-field col s6 offset-s6 m3 offset-m9" style="margin-bottom: 0">
+            <select name="sort" id="sort_by" form="search_form">
+              <option value="score desc" {% if request.args.get('sort') == 'score desc'%} selected {% endif %}>Relevance</option>
+              <option value="date asc" {% if request.args.get('sort') == 'date asc'%} selected {% endif %}>Oldest First</option>
+              <option value="date desc" {% if request.args.get('sort') == 'date desc'%} selected {% endif %}>Newest First</option>
+            </select>
+          </div>
         </div>
+
         {% for result in results %}
           <div class="section">
             <div class="row" style="margin-bottom: 5px;">

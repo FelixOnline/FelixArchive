@@ -26,6 +26,16 @@ html {
   font-family: "Merriweather", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+/* Forms
+   ========================================================================== */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: "Merriweather", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 /* Search Input
    ========================================================================== */
 .search-field {
@@ -49,4 +59,8 @@ html {
 
 .search-field span {
   cursor: pointer;
+}
+
+ul.dropdown-content.select-dropdown li span {
+    color: #000; /* no need for !important :) */
 }
