@@ -32,16 +32,18 @@
               <span>Search</span>
             </button>
             <div class="search-text-wrapper">
-              <input class="search-text" type="text" value="{{ request.args.get('q') }}" name="q">
+              <label for="search_box" style="display: none">Search</label>
+              <input class="search-text" type="text" value="{{ request.args.get('q') }}" name="q" id="search_box">
             </div>
           </div>
         </form>
         <div class="row" style="margin-bottom: 0;">
           <div class="input-field col s6 offset-s6 m3 offset-m9" style="margin-bottom: 0">
+            <label for="sort_by" style="display: none">Sort By</label>
             <select name="sort" id="sort_by" form="search_form">
-              <option value="score desc" {% if request.args.get('sort') == 'score desc'%} selected {% endif %}>Relevance</option>
-              <option value="date asc" {% if request.args.get('sort') == 'date asc'%} selected {% endif %}>Oldest First</option>
-              <option value="date desc" {% if request.args.get('sort') == 'date desc'%} selected {% endif %}>Newest First</option>
+              <option value="score desc" {% if request.args.get('sort') == 'score desc' %} selected {% endif %}>Relevance</option>
+              <option value="date asc" {% if request.args.get('sort') == 'date asc' %} selected {% endif %}>Oldest First</option>
+              <option value="date desc" {% if request.args.get('sort') == 'date desc' %} selected {% endif %}>Newest First</option>
             </select>
           </div>
         </div>
@@ -49,10 +51,10 @@
         {% for result in results %}
           <div class="section">
             <div class="row" style="margin-bottom: 5px;">
-              <div class="col s4">
-                <span style="font-size: 1.64rem;line-height: 110%;margin: 1.0933333333rem 0 0.656rem 0;">Issue {{ result.issue }}</span>
+              <div class="col s6">
+                <a href="{{ result.link }}"><span style="font-size: 1.64rem;line-height: 110%;margin: 1.0933333333rem 0 0.656rem 0;color: #000000">Issue {{ result.issue }}</span></a>
               </div>
-              <div class="col s8 right-align">
+              <div class="col s6 right-align">
                 <span>{{ result.date }}</span>
               </div>
             </div>

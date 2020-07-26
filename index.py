@@ -52,6 +52,7 @@ def build_result(solr_response: OrderedDict) -> List[dict]:
     for doc in solr_response['response']['docs']:
         result = {}
         result['issue'] = doc['issue']
+        result['link'] = FELIX_ARCHIVE_LINK.format(doc['issue'])
         result['page'] = doc['page']
         # Somehow python doesn't like the UTC indicator "Z" at the end of date string
         result['date'] = datetime.fromisoformat(doc['date'].replace('Z', '')).strftime('%d %B %Y')
@@ -71,7 +72,7 @@ def build_paginator(results_per_page: int, total_results: int, args):
 
     paginator = {}
     if cur_p == 1:
-        paginator['left'] = '<li class="disabled"><i class="material-icons">chevron_left</i></li>'
+        paginator['left'] = '<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>'
     else:
         paginator['left'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_left</i></a></li>'. \
@@ -87,7 +88,7 @@ def build_paginator(results_per_page: int, total_results: int, args):
                 '<li class="waves-effect black"><a href="{}">{}</a></li>'.format(page_url, i))
 
     if cur_p == total_pages or total_pages == 0:
-        paginator['right'] = '<li class="disabled"><i class="material-icons">chevron_right</i></li>'
+        paginator['right'] = '<li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>'
     else:
         paginator['right'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_right</i></a></li>'. \
