@@ -9,7 +9,7 @@ import math
 app = Flask(__name__)
 
 DEFAULT_RESULTS_PER_PAGE = 20
-#TODO: responsive this
+# TODO: responsive this
 DEFAULT_MAX_PAGE_BUTTONS = 8
 
 
@@ -25,7 +25,10 @@ def search():
     sort = request.args.get('sort', "score desc", type=str)
 
     results_per_page = DEFAULT_RESULTS_PER_PAGE
-    solr_query = {'q': 'content:"{}"'.format(keyword),
+    solr_query = {'defType': 'dismax',
+
+                  'q': keyword,
+                  'qf': 'content',
 
                   'rows': results_per_page,
                   'start': (page - 1) * results_per_page,
