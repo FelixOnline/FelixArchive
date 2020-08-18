@@ -39,8 +39,11 @@ def search():
                   'hl.fl': 'content',
                   'hl.method': 'unified',
                   'hl.tag.pre': '<span class="yellow">',
-                  'hl.tag.post': '</span>'}
-    r = requests.get(SOLR_SELECT_ENDPOINT, solr_query)
+                  'hl.tag.post': '</span>',
+
+                  'echoParams': 'none'
+                  }
+    r = requests.get(SOLR_SELECT_ENDPOINT, solr_query, auth=(SOLR_USERNAME, SOLR_PASSWORD))
     query_response = r.json(object_pairs_hook=OrderedDict)
 
     total_results = query_response['response']['numFound']
@@ -53,14 +56,14 @@ def search():
 def build_result(solr_response: OrderedDict) -> List[dict]:
     results = []
     for doc in solr_response['response']['docs']:
-        result = {}
-        result['issue'] = doc['issue']
-        result['link'] = FELIX_ARCHIVE_LINK.format(doc['issue'])
-        result['page'] = doc['page']
-        # Somehow python doesn't like the UTC indicator "Z" at the end of date string
-        result['date'] = datetime.fromisoformat(doc['date'].replace('Z', '')).strftime('%d %B %Y')
-        # TODO:handle multiple highlights in a page
-        result['highlighted'] = solr_response['highlighting'][doc['id']]['content'][0].replace("\n", " ")
+        result = {'issue': doc['issue'],
+                  'link': FELIX_ARCHIVE_LINK.format(doc['issue']),
+                  'page': doc['page'],
+                  # Somehow python doesn't like the UTC indicator "Z" at the end of date string
+                  'date': datetime.fromisoformat(doc['date'].replace('Z', '')).strftime('%d %B %Y'),
+                  # TODO:handle multiple highlights in a page
+                  'highlighted': solr_response['highlighting'][doc['id']]['content'][0].replace("\n", " ")
+                  }
         results.append(result)
     return results
 
