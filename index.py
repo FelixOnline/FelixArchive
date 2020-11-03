@@ -14,6 +14,7 @@ DEFAULT_RESULTS_PER_PAGE = 20
 DEFAULT_MAX_PAGE_BUTTONS = 8
 FIRST_ISSUE_DATE = "1949-12-09T00:00:00Z"
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -86,17 +87,19 @@ def build_paginator(results_per_page: int, total_results: int, args):
     total_pages = math.ceil(total_results / results_per_page)
     left_most = math.floor((cur_p - 1) / DEFAULT_MAX_PAGE_BUTTONS) * DEFAULT_MAX_PAGE_BUTTONS + 1
 
+    base_query = {"q": q, "from": from_date, "until": until_date, "sort": sort}
+
     paginator = {}
     if cur_p == 1:
         paginator['left'] = '<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>'
     else:
         paginator['left'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_left</i></a></li>'. \
-                format(url_for('search', q=q, from_=from_date, until=until_date, sort=sort, p=cur_p - 1))
+                format(url_for('search', **base_query, p=cur_p - 1))
 
     paginator['page_buttons'] = []
     for i in range(left_most, min(total_pages + 1, left_most + DEFAULT_MAX_PAGE_BUTTONS)):
-        page_url = url_for('search', q=q, from_=from_date, until=until_date, sort=sort, p=i)
+        page_url = url_for('search', **base_query, p=i)
         if i == cur_p:
             paginator['page_buttons'].append(f'<li class="active black"><a href="{page_url}">{i}</a></li>')
         else:
@@ -108,5 +111,5 @@ def build_paginator(results_per_page: int, total_results: int, args):
     else:
         paginator['right'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_right</i></a></li>'. \
-                format(url_for('search', q=q, from_=from_date, until=until_date,sort=sort,  p=cur_p + 1))
+                format(url_for('search', **base_query, p=cur_p + 1))
     return paginator
