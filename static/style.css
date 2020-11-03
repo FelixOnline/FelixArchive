@@ -64,3 +64,27 @@ textarea {
 ul.dropdown-content.select-dropdown li span {
     color: #000; /* no need for !important :) */
 }
+
+/* Datepicker colour overrides */
+.datepicker-date-display {
+  background-color: #000;
+}
+
+.datepicker-cancel,
+.datepicker-clear,
+.datepicker-today,
+.datepicker-done {
+  color:#000;
+}
+
+.datepicker-day-button:focus {
+  background-color: #9e9e9e;
+}
+
+.datepicker-table td.is-selected {
+  background-color: #000;
+}
+
+.datepicker-table td.is-today {
+  color: #757575;
+}

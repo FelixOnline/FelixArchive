@@ -8,7 +8,7 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&display=swap" rel="stylesheet">
   <link href="{{ url_for('static',filename='materialize.min.css') }}" type="text/css" rel="stylesheet"
         media="screen,projection"/>
   <link href="{{ url_for('static',filename='style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -37,8 +37,29 @@
             </div>
           </div>
         </form>
+        <ul class="collapsible">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">expand_more</i>Advanced Search</div>
+            <div class="collapsible-body">
+              <div class="row">
+                <div class="col s3">
+                  <label for="from_date">From</label>
+                  <input id="from_date" type="text" class="datepicker" name="from" form="search_form">
+                </div>
+                <div class="col s3">
+                  <label for="until_date">To</label>
+                  <input id="until_date" type="text" class="datepicker" name="until" form="search_form">
+                </div>
+                <button class="col s1 btn white waves-effect waves-light" id="reset-date"
+                        style="position: relative; top: 2rem">
+                  <span class="black-text">Reset</span>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
         <div class="row" style="margin-bottom: 0;">
-          <div class="input-field col s6 offset-s6 m3 offset-m9" style="margin-bottom: 0">
+          <div class="col s6 offset-s6 m3 offset-m9" style="margin-bottom: 0">
             <label for="sort_by" style="display: none">Sort By</label>
             <select name="sort" id="sort_by" form="search_form">
               <option value="score desc" {% if request.args.get('sort') == 'score desc' %} selected {% endif %}>Relevance</option>
@@ -52,7 +73,8 @@
           <div class="section">
             <div class="row" style="margin-bottom: 5px;">
               <div class="col s6">
-                <a href="{{ result.link }}"><span style="font-size: 1.64rem;line-height: 110%;margin: 1.0933333333rem 0 0.656rem 0;color: #000000">Issue {{ result.issue }}</span></a>
+                <a href="{{ result.link }}"><span
+                        style="font-size: 1.64rem;line-height: 110%;margin: 1.0933333333rem 0 0.656rem 0;color: #000000">Issue {{ result.issue }}</span></a>
               </div>
               <div class="col s6 right-align">
                 <span>{{ result.date }}</span>
@@ -94,7 +116,7 @@
           felix@uk.ac.imperial
           <span class="grey-text darken-2">
               (swap the domain endianness)
-            </span>
+          </span>
         </p>
       </div>
     </div>
@@ -105,6 +127,12 @@
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{{ url_for('static',filename='materialize.min.js') }}"></script>
+<script>
+  const firstIssueDate = new Date("1949-12-09");
+  const today = new Date();
+  const defaultFromDate = {% if request.args.get('from') is not none %} new Date("{{ request.args.get('from') }}") {% else %} firstIssueDate {% endif %}
+  const defaultUntilDate = {% if request.args.get('until') is not none %} new Date("{{ request.args.get('until') }}") {% else %} today {% endif %}
+</script>
 <script src="{{ url_for('static',filename='init.js') }}"></script>
 </body>
 

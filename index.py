@@ -4,6 +4,7 @@ import requests
 from collections import OrderedDict
 from typing import *
 from datetime import datetime
+from dateutil import parser
 import math
 
 app = Flask(__name__)
@@ -11,7 +12,7 @@ app = Flask(__name__)
 DEFAULT_RESULTS_PER_PAGE = 20
 # TODO: responsive this
 DEFAULT_MAX_PAGE_BUTTONS = 8
-
+FIRST_ISSUE_DATE = "1949-12-09T00:00:00Z"
 
 @app.route('/')
 def index():
@@ -23,12 +24,19 @@ def search():
     keyword = request.args.get('q', type=str)
     page = request.args.get('p', 1, type=int)
     sort = request.args.get('sort', "score desc", type=str)
+    from_date = request.args.get('from', FIRST_ISSUE_DATE, type=str)
+    until_date = request.args.get('until', datetime.today().isoformat(timespec='seconds'), type=str)
+
+    from_date = parser.parse(from_date, ignoretz=True).isoformat(timespec='seconds') + "Z"
+    until_date = parser.parse(until_date, ignoretz=True).isoformat(timespec='seconds') + "Z"
 
     results_per_page = DEFAULT_RESULTS_PER_PAGE
     solr_query = {'defType': 'dismax',
 
                   'q': keyword,
                   'qf': 'content',
+
+                  'fq': f'date:[{from_date} TO {until_date}]',
 
                   'rows': results_per_page,
                   'start': (page - 1) * results_per_page,
@@ -71,7 +79,9 @@ def build_result(solr_response: OrderedDict) -> List[dict]:
 def build_paginator(results_per_page: int, total_results: int, args):
     q = args.get('q', type=str)
     cur_p = args.get('p', 1, type=int)
-    sort = request.args.get('sort', "score desc", type=str)
+    sort = request.args.get('sort', type=str)
+    from_date = request.args.get('from', type=str)
+    until_date = request.args.get('until', type=str)
 
     total_pages = math.ceil(total_results / results_per_page)
     left_most = math.floor((cur_p - 1) / DEFAULT_MAX_PAGE_BUTTONS) * DEFAULT_MAX_PAGE_BUTTONS + 1
@@ -82,21 +92,21 @@ def build_paginator(results_per_page: int, total_results: int, args):
     else:
         paginator['left'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_left</i></a></li>'. \
-                format(url_for('search', q=q, sort=sort, p=cur_p - 1))
+                format(url_for('search', q=q, from_=from_date, until=until_date, sort=sort, p=cur_p - 1))
 
     paginator['page_buttons'] = []
     for i in range(left_most, min(total_pages + 1, left_most + DEFAULT_MAX_PAGE_BUTTONS)):
-        page_url = url_for('search', q=q, sort=sort, p=i)
+        page_url = url_for('search', q=q, from_=from_date, until=until_date, sort=sort, p=i)
         if i == cur_p:
-            paginator['page_buttons'].append('<li class="active black"><a href="{}">{}</a></li>'.format(page_url, i))
+            paginator['page_buttons'].append(f'<li class="active black"><a href="{page_url}">{i}</a></li>')
         else:
             paginator['page_buttons'].append(
-                '<li class="waves-effect black"><a href="{}">{}</a></li>'.format(page_url, i))
+                f'<li class="waves-effect black"><a href="{page_url}">{i}</a></li>')
 
     if cur_p == total_pages or total_pages == 0:
         paginator['right'] = '<li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>'
     else:
         paginator['right'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_right</i></a></li>'. \
-                format(url_for('search', q=q, sort=sort, p=cur_p + 1))
+                format(url_for('search', q=q, from_=from_date, until=until_date,sort=sort,  p=cur_p + 1))
     return paginator
