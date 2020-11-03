@@ -128,10 +128,12 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{{ url_for('static',filename='materialize.min.js') }}"></script>
 <script>
-  const firstIssueDate = new Date("1949-12-09");
-  const today = new Date();
-  const defaultFromDate = {% if request.args.get('from') is not none %} new Date("{{ request.args.get('from') }}") {% else %} firstIssueDate {% endif %}
-  const defaultToDate = {% if request.args.get('to') is not none %} new Date("{{ request.args.get('to') }}") {% else %} today {% endif %}
+    const firstIssueDate = new Date("1949-12-09");
+    const today = new Date();
+    const defaultFromDate = {% if request.args.get('from') is not none %}
+        new Date("{{ request.args.get('from') }}") {% else %} firstIssueDate {% endif %}
+    const defaultToDate = {% if request.args.get('to') is not none %}
+        new Date("{{ request.args.get('to') }}") {% else %} today {% endif %}
 </script>
 <script src="{{ url_for('static',filename='init.js') }}"></script>
 </body>
