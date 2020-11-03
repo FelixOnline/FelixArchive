@@ -47,8 +47,8 @@
                   <input id="from_date" type="text" class="datepicker" name="from" form="search_form">
                 </div>
                 <div class="col s3">
-                  <label for="until_date">To</label>
-                  <input id="until_date" type="text" class="datepicker" name="until" form="search_form">
+                  <label for="to_date">To</label>
+                  <input id="to_date" type="text" class="datepicker" name="to" form="search_form">
                 </div>
                 <button class="col s1 btn white waves-effect waves-light" id="reset-date"
                         style="position: relative; top: 2rem">
@@ -131,7 +131,7 @@
   const firstIssueDate = new Date("1949-12-09");
   const today = new Date();
   const defaultFromDate = {% if request.args.get('from') is not none %} new Date("{{ request.args.get('from') }}") {% else %} firstIssueDate {% endif %}
-  const defaultUntilDate = {% if request.args.get('until') is not none %} new Date("{{ request.args.get('until') }}") {% else %} today {% endif %}
+  const defaultToDate = {% if request.args.get('to') is not none %} new Date("{{ request.args.get('to') }}") {% else %} today {% endif %}
 </script>
 <script src="{{ url_for('static',filename='init.js') }}"></script>
 </body>

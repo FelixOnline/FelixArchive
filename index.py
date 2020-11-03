@@ -26,10 +26,10 @@ def search():
     page = request.args.get('p', 1, type=int)
     sort = request.args.get('sort', "score desc", type=str)
     from_date = request.args.get('from', FIRST_ISSUE_DATE, type=str)
-    until_date = request.args.get('until', datetime.today().isoformat(timespec='seconds'), type=str)
+    to_date = request.args.get('to', datetime.today().isoformat(timespec='seconds'), type=str)
 
     from_date = parser.parse(from_date, ignoretz=True).isoformat(timespec='seconds') + "Z"
-    until_date = parser.parse(until_date, ignoretz=True).isoformat(timespec='seconds') + "Z"
+    to_date = parser.parse(to_date, ignoretz=True).isoformat(timespec='seconds') + "Z"
 
     results_per_page = DEFAULT_RESULTS_PER_PAGE
     solr_query = {'defType': 'dismax',
@@ -37,7 +37,7 @@ def search():
                   'q': keyword,
                   'qf': 'content',
 
-                  'fq': f'date:[{from_date} TO {until_date}]',
+                  'fq': f'date:[{from_date} TO {to_date}]',
 
                   'rows': results_per_page,
                   'start': (page - 1) * results_per_page,
@@ -82,12 +82,12 @@ def build_paginator(results_per_page: int, total_results: int, args):
     cur_p = args.get('p', 1, type=int)
     sort = request.args.get('sort', type=str)
     from_date = request.args.get('from', type=str)
-    until_date = request.args.get('until', type=str)
+    to_date = request.args.get('to', type=str)
 
     total_pages = math.ceil(total_results / results_per_page)
     left_most = math.floor((cur_p - 1) / DEFAULT_MAX_PAGE_BUTTONS) * DEFAULT_MAX_PAGE_BUTTONS + 1
 
-    base_query = {"q": q, "from": from_date, "until": until_date, "sort": sort}
+    base_query = {"q": q, "from": from_date, "to": to_date, "sort": sort}
 
     paginator = {}
     if cur_p == 1:

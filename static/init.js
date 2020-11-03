@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     M.Collapsible.init(elems, null);
 });
 
-init_dates = function (fromDate, untilDate) {
+init_dates = function (fromDate, toDate) {
     const from = document.querySelector('#from_date');
     const from_options = {
         format: "d mmm yyyy",
@@ -18,18 +18,18 @@ init_dates = function (fromDate, untilDate) {
         setDefaultDate: true
     }
     M.Datepicker.init(from, from_options);
-    const until = document.querySelector('#until_date');
-    const until_options = {
+    const to = document.querySelector('#to_date');
+    const to_options = {
         format: "d mmm yyyy",
         firstDay: 1,
 
-        defaultDate: untilDate,
+        defaultDate: toDate,
         setDefaultDate: true
     }
-    M.Datepicker.init(until, until_options);
+    M.Datepicker.init(to, to_options);
 }
 
-document.addEventListener('DOMContentLoaded', _ => init_dates(defaultFromDate, defaultUntilDate));
+document.addEventListener('DOMContentLoaded', _ => init_dates(defaultFromDate, defaultToDate));
 
 $('#sort_by').change(function () {
     let url = new URL(window.location.href)
