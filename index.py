@@ -91,7 +91,7 @@ def build_paginator(results_per_page: int, total_results: int, args):
 
     paginator = {}
     if cur_p == 1:
-        paginator['left'] = '<li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>'
+        paginator['left'] = '<li class="disabled"><a><i class="material-icons grey-text text-lighten-2">chevron_left</i></a></li>'
     else:
         paginator['left'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_left</i></a></li>'. \
@@ -107,7 +107,7 @@ def build_paginator(results_per_page: int, total_results: int, args):
                 f'<li class="waves-effect black"><a href="{page_url}">{i}</a></li>')
 
     if cur_p == total_pages or total_pages == 0:
-        paginator['right'] = '<li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>'
+        paginator['right'] = '<li class="disabled"><a><i class="material-icons grey-text text-lighten-2">chevron_right</i></a></li>'
     else:
         paginator['right'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_right</i></a></li>'. \

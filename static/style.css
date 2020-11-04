@@ -6,24 +6,36 @@
  * Made By MaterializeCSS.com
  */
 body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 main {
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .icon-block {
-  padding: 0 15px;
+    padding: 0 15px;
 }
+
 .icon-block .material-icons {
-	font-size: inherit;
+    font-size: inherit;
 }
 
 html {
-  font-family: "Merriweather", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: "Merriweather", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+nav .brand-logo {
+    width: max-content;
+}
+
+.issue-title {
+    font-size: 1.64rem;
+    line-height: 110%;
+    margin: 1.0933333333rem 0 0.656rem 0;
+    color: #000000
 }
 
 /* Forms
@@ -33,32 +45,32 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: "Merriweather", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: "Merriweather", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 /* Search Input
    ========================================================================== */
 .search-field {
-  position: relative;
+    position: relative;
 }
 
 .search-field .search-text-wrapper {
-  overflow: hidden;
-  padding-right: 20px;
+    overflow: hidden;
+    padding-right: 20px;
 }
 
 .search-field input.search-text {
-  width: 100%;
+    width: 100%;
 }
 
 .search-field .btn, .search-field .btn-large, .search-field .btn-small {
-  float: right;
-  height: 3rem;
-  line-height: 3rem;
+    float: right;
+    height: 3rem;
+    line-height: 3rem;
 }
 
 .search-field span {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 ul.dropdown-content.select-dropdown li span {
@@ -67,24 +79,24 @@ ul.dropdown-content.select-dropdown li span {
 
 /* Datepicker colour overrides */
 .datepicker-date-display {
-  background-color: #000;
+    background-color: #000;
 }
 
 .datepicker-cancel,
 .datepicker-clear,
 .datepicker-today,
 .datepicker-done {
-  color:#000;
+    color: #000;
 }
 
 .datepicker-day-button:focus {
-  background-color: #9e9e9e;
+    background-color: #9e9e9e;
 }
 
 .datepicker-table td.is-selected {
-  background-color: #000;
+    background-color: #000;
 }
 
 .datepicker-table td.is-today {
-  color: #757575;
+    color: #757575;
 }

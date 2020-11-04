@@ -13,6 +13,9 @@ init_dates = function (fromDate, toDate) {
     const from_options = {
         format: "d mmm yyyy",
         firstDay: 1,
+        autoClose: true,
+
+        yearRange: [firstIssueDate.getFullYear(), today.getFullYear()],
 
         defaultDate: fromDate,
         setDefaultDate: true
@@ -22,6 +25,9 @@ init_dates = function (fromDate, toDate) {
     const to_options = {
         format: "d mmm yyyy",
         firstDay: 1,
+        autoClose: true,
+
+        yearRange: [firstIssueDate.getFullYear(), today.getFullYear()],
 
         defaultDate: toDate,
         setDefaultDate: true
