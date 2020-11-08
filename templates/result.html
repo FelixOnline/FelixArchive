@@ -82,9 +82,12 @@
             <div class="page-result">
               <span class="grey-text">Page {{ result.page }}</span>
               <br>
-              <div class="text-hit">
-                {{ result.highlighted|safe }}
-              </div>
+              {% for highlighting in result.highlightings %}
+                <div class="text-hit">
+                  {{ highlighting|safe }}
+                  <br>
+                </div>
+              {% endfor %}
             </div>
           </div>
           <div class="divider"></div>
@@ -117,6 +120,12 @@
               (swap the domain endianness)
           </span>
         </p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <ul>
+          <li><a class="white-text" href="https://felixonline.co.uk">https://felixonline.co.uk</a></li>
+          <li><a class="white-text" href="https://twitter.com/feliximperial">@feliximperial</a></li>
+        </ul>
       </div>
     </div>
   </div>

@@ -71,7 +71,8 @@ def build_result(solr_response: OrderedDict) -> List[dict]:
                   # Somehow python doesn't like the UTC indicator "Z" at the end of date string
                   'date': datetime.fromisoformat(doc['date'].replace('Z', '')).strftime('%d %B %Y'),
                   # TODO:handle multiple highlights in a page
-                  'highlighted': solr_response['highlighting'][doc['id']]['content'][0].replace("\n", " ")
+                  'highlightings': map(lambda s: s.replace("\n", " "),
+                                       solr_response['highlighting'][doc['id']]['content'])
                   }
         results.append(result)
     return results
