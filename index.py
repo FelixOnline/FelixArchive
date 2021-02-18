@@ -17,7 +17,7 @@ FIRST_ISSUE_DATE = "1949-12-09T00:00:00Z"
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', current_year=datetime.now().year)
 
 
 @app.route('/search', methods=['GET'])
@@ -92,11 +92,12 @@ def build_paginator(results_per_page: int, total_results: int, args):
 
     paginator = {}
     if cur_p == 1:
-        paginator['left'] = '<li class="disabled"><a><i class="material-icons grey-text text-lighten-2">chevron_left</i></a></li>'
+        paginator['left'] = \
+            '<li class="disabled"><a><i class="material-icons grey-text text-lighten-2">chevron_left</i></a></li>'
     else:
         paginator['left'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_left</i></a></li>'. \
-                format(url_for('search', **base_query, p=cur_p - 1))
+            format(url_for('search', **base_query, p=cur_p - 1))
 
     paginator['page_buttons'] = []
     for i in range(left_most, min(total_pages + 1, left_most + DEFAULT_MAX_PAGE_BUTTONS)):
@@ -108,9 +109,10 @@ def build_paginator(results_per_page: int, total_results: int, args):
                 f'<li class="waves-effect black"><a href="{page_url}">{i}</a></li>')
 
     if cur_p == total_pages or total_pages == 0:
-        paginator['right'] = '<li class="disabled"><a><i class="material-icons grey-text text-lighten-2">chevron_right</i></a></li>'
+        paginator['right'] = \
+            '<li class="disabled"><a><i class="material-icons grey-text text-lighten-2">chevron_right</i></a></li>'
     else:
         paginator['right'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_right</i></a></li>'. \
-                format(url_for('search', **base_query, p=cur_p + 1))
+            format(url_for('search', **base_query, p=cur_p + 1))
     return paginator
