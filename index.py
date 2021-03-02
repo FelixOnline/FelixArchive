@@ -59,7 +59,7 @@ def search():
     paginator = build_paginator(results_per_page, total_results, request.args)
 
     results = build_result(query_response)
-    return render_template('result.html', results=results, paginator=paginator)
+    return render_template('result.html', results=results, paginator=paginator, current_year=datetime.now().year)
 
 
 def build_result(solr_response: OrderedDict) -> List[dict]:
