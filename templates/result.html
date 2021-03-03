@@ -26,17 +26,15 @@
     <div class="row">
       <div class="col s12 m12 l10 offset-l1">
         <h3>Search Results</h3>
-        <form action="/search" id="search_form">
-          <div class="search-field input-field">
-            <button class="btn black waves-effect waves-light" type="submit">
-              <span>Search</span>
-            </button>
-            <div class="search-text-wrapper">
-              <label for="search_box" style="display: none">Search</label>
-              <input class="search-text" type="text" value="{{ request.args.get('q') }}" name="q" id="search_box">
-            </div>
+          <div class="row">
+            <form action="/search" id="search_form">
+              <div class="input-field col s9 m10">
+                <label for="search_box" style="display: none">Search</label>
+                <input type="text" value="{{ request.args.get('q') }}" name="q" id="search_box">
+              </div>
+              <button class="btn black waves-effect waves-light input-field col s3 m2" type="submit">Search</button>
+            </form>
           </div>
-        </form>
         <ul class="collapsible">
           <li>
             <div class="collapsible-header"><i class="material-icons">expand_more</i>Advanced Search</div>
@@ -59,18 +57,12 @@
           </li>
         </ul>
         <div class="row" style="margin-bottom: 0;">
-          <div class="col s6 offset-s6 m3 offset-m9" style="margin-bottom: 0">
+          <div class="col s6 offset-s6 m3 offset-m9 l2 offset-l10" style="margin-bottom: 0">
             <label for="sort_by" style="display: none">Sort By</label>
             <select name="sort" id="sort_by" form="search_form">
-              <option value="score desc" {% if request.args.get('sort') == 'score desc' %} selected {% endif %}>
-                Relevance
-              </option>
-              <option value="date asc" {% if request.args.get('sort') == 'date asc' %} selected {% endif %}>Oldest
-                First
-              </option>
-              <option value="date desc" {% if request.args.get('sort') == 'date desc' %} selected {% endif %}>Newest
-                First
-              </option>
+              <option value="score desc" {% if request.args.get('sort') == 'score desc' %} selected {% endif %}>Relevance</option>
+              <option value="date asc" {% if request.args.get('sort') == 'date asc' %} selected {% endif %}>Oldest First</option>
+              <option value="date desc" {% if request.args.get('sort') == 'date desc' %} selected {% endif %}>Newest First</option>
             </select>
           </div>
         </div>
