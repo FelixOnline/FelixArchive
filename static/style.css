@@ -71,3 +71,8 @@ textarea {
 .datepicker-table td.is-today {
     color: #757575;
 }
+
+/* Sort dropdown overrides */
+dropdown-content li > a, .dropdown-content li > span {
+    color: #000;
+}
