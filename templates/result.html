@@ -9,7 +9,8 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;900&display=swap" rel="stylesheet">
-  <link href="{{ url_for('static',filename='materialize.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{{ url_for('static',filename='materialize.min.css') }}" type="text/css" rel="stylesheet"
+        media="screen,projection"/>
   <link href="{{ url_for('static',filename='style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 
@@ -61,9 +62,15 @@
           <div class="col s6 offset-s6 m3 offset-m9" style="margin-bottom: 0">
             <label for="sort_by" style="display: none">Sort By</label>
             <select name="sort" id="sort_by" form="search_form">
-              <option value="score desc" {% if request.args.get('sort') == 'score desc' %} selected {% endif %}>Relevance</option>
-              <option value="date asc" {% if request.args.get('sort') == 'date asc' %} selected {% endif %}>Oldest First</option>
-              <option value="date desc" {% if request.args.get('sort') == 'date desc' %} selected {% endif %}>Newest First</option>
+              <option value="score desc" {% if request.args.get('sort') == 'score desc' %} selected {% endif %}>
+                Relevance
+              </option>
+              <option value="date asc" {% if request.args.get('sort') == 'date asc' %} selected {% endif %}>Oldest
+                First
+              </option>
+              <option value="date desc" {% if request.args.get('sort') == 'date desc' %} selected {% endif %}>Newest
+                First
+              </option>
             </select>
           </div>
         </div>
@@ -106,7 +113,6 @@
 </main>
 
 {% include "footer.html" %}
-
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
