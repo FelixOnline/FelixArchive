@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, redirect
 from settings import *
 import requests
 from collections import OrderedDict
@@ -9,15 +9,21 @@ import math
 
 app = Flask(__name__)
 
-DEFAULT_RESULTS_PER_PAGE = 20
-# TODO: responsive this
-DEFAULT_MAX_PAGE_BUTTONS = 8
-FIRST_ISSUE_DATE = "1949-12-09T00:00:00Z"
+
+@app.route('/issue', methods=['GET'])
+def issue():
+    return redirect(FELIX_ARCHIVE_LINK.format(request.args.get('no', type=int)))
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', current_year=datetime.now().year)
+    return render_template('index.html', current_year=datetime.now().year, max_issue=MAX_ISSUE)
+
+
+DEFAULT_RESULTS_PER_PAGE = 20
+# TODO: responsive this
+DEFAULT_MAX_PAGE_BUTTONS = 8
+FIRST_ISSUE_DATE = "1949-12-09T00:00:00Z"
 
 
 @app.route('/search', methods=['GET'])

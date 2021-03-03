@@ -48,35 +48,6 @@ textarea {
     font-family: "Merriweather", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-/* Search Input
-   ========================================================================== */
-.search-field {
-    position: relative;
-}
-
-.search-field .search-text-wrapper {
-    overflow: hidden;
-    padding-right: 20px;
-}
-
-.search-field input.search-text {
-    width: 100%;
-}
-
-.search-field .btn, .search-field .btn-large, .search-field .btn-small {
-    float: right;
-    height: 3rem;
-    line-height: 3rem;
-}
-
-.search-field span {
-    cursor: pointer;
-}
-
-ul.dropdown-content.select-dropdown li span {
-    color: #000; /* no need for !important :) */
-}
-
 /* Datepicker colour overrides */
 .datepicker-date-display {
     background-color: #000;

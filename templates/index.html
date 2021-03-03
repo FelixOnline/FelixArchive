@@ -25,16 +25,29 @@
       <h1 class="header center black-text">Search the Felix Archive</h1>
       <div class="row">
         <div class="col s12 m12 l8 offset-l2">
-          <form action="/search" method="get">
-            <div class="search-field input-field">
-              <button class="btn-large black waves-effect waves-light" type="submit">
-                <span>Search</span>
-              </button>
-              <div class="search-text-wrapper">
-                <input class="search-text" type="text" name="q">
+          <div class="row">
+            <form action="/search" method="get">
+              <div class="input-field col s9">
+                <input type="text" name="q">
               </div>
-            </div>
-          </form>
+              <button class="btn-large black waves-effect waves-light input-field col s3" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <h5 class="heading center black-text">Or ...</h5>
+
+      <div class="row">
+        <div class="col s8 offset-s2 m4 offset-m4 l4 offset-l4">
+          <div class="row">
+            <form action="/issue" method="get">
+              <div class="input-field col s6 l7">
+                <input type="number" min="1" max="{{ max_issue }}" name="no">
+              </div>
+              <button class="btn-small black waves-effect waves-light input-field col s6 l5" type="submit">Go To Issue</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
