@@ -1,26 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Felix Archive</title>
-
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;900&display=swap" rel="stylesheet">
-  <link href="{{ url_for('static',filename='materialize.min.css') }}" type="text/css" rel="stylesheet"
-        media="screen,projection"/>
-  <link href="{{ url_for('static',filename='style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
+{% include('head.html') %}
 
 <body>
-<nav class="black">
-  <div class="nav-wrapper">
-    <a href="/" class="brand-logo center">Felix Archive</a>
-  </div>
-</nav>
-
+{% include('nav.html') %}
 <main>
   <div class="container">
     <div class="row">
