@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
+from werkzeug.security import safe_join
+
 from settings import *
 import requests
 from collections import OrderedDict
@@ -103,7 +105,7 @@ def build_paginator(results_per_page: int, total_results: int, args):
     else:
         paginator['left'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_left</i></a></li>'. \
-            format(url_for('search', **base_query, p=cur_p - 1))
+                format(url_for('search', **base_query, p=cur_p - 1))
 
     paginator['page_buttons'] = []
     for i in range(left_most, min(total_pages + 1, left_most + DEFAULT_MAX_PAGE_BUTTONS)):
@@ -120,5 +122,19 @@ def build_paginator(results_per_page: int, total_results: int, args):
     else:
         paginator['right'] = \
             '<li class="waves-effect"><a href="{}"><i class="material-icons">chevron_right</i></a></li>'. \
-            format(url_for('search', **base_query, p=cur_p + 1))
+                format(url_for('search', **base_query, p=cur_p + 1))
     return paginator
+
+
+@app.route('/browse/<int:year>')
+def browse_year(year):
+    generated_path = safe_join(GENERATED_LISTING_DIR, f"{year}.html")
+    content = open(generated_path).read()
+    return render_template('issue_browser.html', current_year=datetime.now().year, content=content)
+
+
+@app.route('/browse')
+def browse():
+    generated_path = safe_join(GENERATED_LISTING_DIR, 'years_listing.html')
+    content = open(generated_path).read()
+    return render_template('issue_browser.html', current_year=datetime.now().year, content=content)

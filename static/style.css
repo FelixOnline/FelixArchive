@@ -76,3 +76,18 @@ textarea {
 dropdown-content li > a, .dropdown-content li > span {
     color: #000;
 }
+
+/* Issue cards */
+.issue-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.issue-cards-container .card {
+    margin: 1em;
+    flex-basis: calc(20% - 2em);
+}
+
+.issue-cards-container .card-action {
+    color: black !important;
+}
