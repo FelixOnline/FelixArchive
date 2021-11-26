@@ -1,3 +1,5 @@
+import os.path
+
 from flask import Flask, render_template, request, url_for, redirect
 from werkzeug.security import safe_join
 
@@ -126,15 +128,22 @@ def build_paginator(results_per_page: int, total_results: int, args):
     return paginator
 
 
+def normalise_relative_path(path: str):
+    if os.path.isabs(path):
+        return path
+    else:
+        return os.path.join(os.path.dirname(__file__), path)
+
+
 @app.route('/browse/<int:year>')
 def browse_year(year):
-    generated_path = safe_join(GENERATED_LISTING_DIR, f"{year}.html")
+    generated_path = safe_join(normalise_relative_path(GENERATED_LISTING_DIR), f"{year}.html")
     content = open(generated_path).read()
     return render_template('issue_browser.html', current_year=datetime.now().year, content=content)
 
 
 @app.route('/browse')
 def browse():
-    generated_path = safe_join(GENERATED_LISTING_DIR, 'years_listing.html')
+    generated_path = safe_join(normalise_relative_path(GENERATED_LISTING_DIR), 'years_listing.html')
     content = open(generated_path).read()
     return render_template('issue_browser.html', current_year=datetime.now().year, content=content)
