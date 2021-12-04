@@ -14,9 +14,9 @@ import math
 app = Flask(__name__)
 
 
-@app.route('/issue', methods=['GET'])
-def issue():
-    return redirect(FELIX_ARCHIVE_LINK.format(request.args.get('no', type=int)))
+@app.route('/issue/<int:issue_no>', methods=['GET'])
+def issue(issue_no: int):
+    return redirect(FELIX_ARCHIVE_LINK.format(issue_no))
 
 
 @app.route('/')

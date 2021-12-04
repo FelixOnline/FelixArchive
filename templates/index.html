@@ -26,9 +26,9 @@
     <div class="row">
       <div class="col s8 offset-s2 m4 offset-m4 l4 offset-l4">
         <div class="row">
-          <form action="/issue" method="get">
+          <form id="go_to_issue">
             <div class="input-field col s6 l7">
-              <input type="number" min="1" placeholder="Issue No." name="no">
+              <input id="issue_no" type="number" min="1" placeholder="Issue No.">
             </div>
             <button class="btn-small black waves-effect waves-light input-field col s6 l5" type="submit">Go To Issue
             </button>
@@ -47,7 +47,14 @@
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="{{ url_for('static',filename='materialize.min.js') }}"></script>
-
+<script>
+    $(document).ready(function () {
+        $('#go_to_issue').submit(function (e) {
+            e.preventDefault()
+            window.location.assign("/issue/" + $('#issue_no').val())
+        })
+    })
+</script>
 </body>
 
 </html>
