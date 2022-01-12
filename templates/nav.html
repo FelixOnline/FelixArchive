@@ -1,5 +1,22 @@
 <nav class="black">
   <div class="nav-wrapper">
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <li><a href="https://felixonline.co.uk">Back to Felix Online</a></li>
+      <li><a href="/browse">Browse Issues</a></li>
+    </ul>
     <a href="/" class="brand-logo center">Felix Archive</a>
   </div>
 </nav>
+
+<ul class="sidenav" id="mobile-demo">
+  <li><a href="https://felixonline.co.uk">Back to Felix Online</a></li>
+  <li><a href="/browse">Browse Issues</a></li>
+</ul>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+</script>
