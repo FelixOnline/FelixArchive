@@ -1,0 +1,8 @@
+services:
+  felix-archive-web:
+    container_name: felix-archive-web
+    build:
+      context: .
+      target: builder
+    ports:
+     - '8000:8000'

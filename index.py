@@ -147,3 +147,6 @@ def browse():
     generated_path = safe_join(normalise_relative_path(GENERATED_LISTING_DIR), 'years_listing.html')
     content = open(generated_path).read()
     return render_template('issue_browser.html', current_year=datetime.now().year, content=content)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8000)
