@@ -62,8 +62,11 @@ def search():
 
                   'echoParams': 'none'
                   }
-    r = requests.get(SOLR_SELECT_ENDPOINT, solr_query, auth=(SOLR_USERNAME, SOLR_PASSWORD))
+    r = requests.get(SOLR_SELECT_ENDPOINT, solr_query)
     query_response = r.json(object_pairs_hook=OrderedDict)
+
+    if 'response' not in query_response:
+        raise Exception("Solr query failed, response: " + str(query_response))
 
     total_results = query_response['response']['numFound']
     paginator = build_paginator(results_per_page, total_results, request.args)
@@ -149,4 +152,4 @@ def browse():
     return render_template('issue_browser.html', current_year=datetime.now().year, content=content)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='0.0.0.0', port=80)
