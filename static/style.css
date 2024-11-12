@@ -38,6 +38,11 @@ nav .brand-logo {
     color: #000000
 }
 
+.card-image img {
+    object-fit: cover;
+    aspect-ratio: 3/4;
+}
+
 /* Forms
    ========================================================================== */
 button,
